@@ -5,8 +5,8 @@ import * as REDUX from "../../../../redux/kanban";
 import styled from "styled-components";
 import Card from "./card";
 import { useDispatch } from "react-redux";
-import { KeyboardHandler, SaveOnLocal } from "../../../../utils";
-import { motion } from "framer-motion";
+import { KeyboardHandler, onBlurHandler } from "../../../../utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Component = styled.div`
   background-color: #d3dedc;
@@ -64,7 +64,7 @@ export default function Column(props: Props) {
 
   function createNewCard() {
     const payload = {
-      columnId: index,
+      columnindex: index,
       cardtitle: CardTitle,
     };
     dispatch(REDUX.createCard(payload));
@@ -77,15 +77,18 @@ export default function Column(props: Props) {
       <ColumnHeader>{column.title}</ColumnHeader>
       <CardsWrapper>
         {column.cards.map((card: CardTypes, index: number) => {
-          return <Card index={index} card={card} key={card.id} />;
+          return <Card index={index} card={card} key={card.id} columnindex={props.index} />;
         })}
         <CreateNewCard>
           {CreatingNewCard && (
             <NewCardInput
               as={motion.input}
+              key="new-card-input"
               animate={{
-                y: [-3, 0],
+                y: [-5, 0],
+                opacity: [0.2, 1],
               }}
+              initial={{ y: -5, opacity: 0.2 }}
               transition={{ ease: "easeOut", duration: 0.25 }}
               autoFocus={true}
               value={CardTitle}
@@ -93,13 +96,7 @@ export default function Column(props: Props) {
               onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                 KeyboardHandler(e, createNewCard, setCreatingNewCard)
               }
-              onBlur={() => {
-                if (CardTitle.length > 0) {
-                  createNewCard();
-                } else {
-                  setCreatingNewCard(false);
-                }
-              }}
+              onBlur={() => onBlurHandler(CardTitle, createNewCard, setCreatingNewCard)}
             />
           )}
           <button onClick={() => setCreatingNewCard(true)}>Create new card</button>

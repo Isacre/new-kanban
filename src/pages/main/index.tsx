@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
+import { SaveOnLocal } from "../../utils";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Board from "./board";
 import HeaderComponent from "./header/";
-import { SaveOnLocal } from "../../utils";
-import { useDispatch } from "react-redux";
 import * as REDUX from "../../redux/kanban/index";
 
 const Component = styled.div`

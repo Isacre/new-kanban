@@ -16,6 +16,15 @@ export function KeyboardHandler(
   }
 }
 
+/**Handles Blur. If there is no value, its gonna execute the closing function, otherwise its gonna execute the saving function. */
+export function onBlurHandler(value: string, savingfunction: () => void, closingfunction: (value: boolean) => void) {
+  if (value.length > 0) {
+    savingfunction();
+  } else {
+    closingfunction(false);
+  }
+}
+
 /** Saves on localStorage. */
 export function SaveOnLocal(key: string, value: any) {
   const valueAsString = JSON.stringify(value);
