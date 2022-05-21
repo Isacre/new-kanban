@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import * as REDUX from "../../../redux/kanban";
 import logo from "../../../assets/img/mug.png";
+import { useDispatch } from "react-redux";
 
 const Component = styled.div`
   display: flex;
@@ -16,6 +18,9 @@ const Logo = styled.img`
   height: 65px;
 `;
 export default function HeaderComponent() {
+  const dispatch = useDispatch();
+  const localdata = localStorage.getItem("kanban");
+
   return (
     <Component>
       <Logo src={logo} />
