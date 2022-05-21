@@ -63,6 +63,10 @@ export default function Column(props: Props) {
   const dispatch = useDispatch();
 
   function createNewCard() {
+    if (CardTitle === "") {
+      window.alert("Please enter a title for the card");
+      return;
+    }
     const payload = {
       columnindex: index,
       cardtitle: CardTitle,
@@ -99,7 +103,7 @@ export default function Column(props: Props) {
               onBlur={() => onBlurHandler(CardTitle, createNewCard, setCreatingNewCard)}
             />
           )}
-          <button onClick={() => setCreatingNewCard(true)}>Create new card</button>
+          {!CreatingNewCard && <button onClick={() => setCreatingNewCard(true)}>Create new card</button>}
         </CreateNewCard>
       </CardsWrapper>
     </Component>

@@ -25,7 +25,7 @@ export default function MainPage() {
   }, [localData]);
   return (
     <Component>
-      <HeaderComponent />
+      {/* <HeaderComponent /> */}
       <Board />
     </Component>
   );

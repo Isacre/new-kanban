@@ -59,6 +59,9 @@ const KanbanReducer = createSlice({
     updateKanban(state, action) {
       state.columns = action.payload;
     },
+    createColumn(state, action) {
+      state.columns = action.payload;
+    },
     createCard(state, action) {
       const { columnindex, cardtitle } = action.payload;
       const newCard = {
@@ -77,6 +80,6 @@ const KanbanReducer = createSlice({
   },
 });
 
-export const { updateKanban, createCard, deleteCard } = KanbanReducer.actions;
+export const { updateKanban, createCard, deleteCard, createColumn } = KanbanReducer.actions;
 
 export default KanbanReducer.reducer;
