@@ -60,7 +60,16 @@ const KanbanReducer = createSlice({
       state.columns = action.payload;
     },
     createColumn(state, action) {
-      state.columns = action.payload;
+      const Column = {
+        id: `Coluna ${Math.random()}`,
+        title: action.payload,
+        cards: [],
+      };
+      state.columns.push(Column);
+    },
+    deleteColumn(state, action) {
+      state.columns.splice(action.payload, 1);
+      SaveOnLocal("kanban", state);
     },
     createCard(state, action) {
       const { columnindex, cardtitle } = action.payload;
@@ -80,6 +89,6 @@ const KanbanReducer = createSlice({
   },
 });
 
-export const { updateKanban, createCard, deleteCard, createColumn } = KanbanReducer.actions;
+export const { updateKanban, createCard, deleteCard, createColumn, deleteColumn } = KanbanReducer.actions;
 
 export default KanbanReducer.reducer;

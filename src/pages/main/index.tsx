@@ -20,12 +20,12 @@ export default function MainPage() {
   useEffect(() => {
     if (localData) {
       SaveOnLocal("kanban", data);
+      dispatch(REDUX.updateKanban(data.columns));
     }
-    dispatch(REDUX.updateKanban(data.columns));
   }, [localData]);
   return (
     <Component>
-      {/* <HeaderComponent /> */}
+      <HeaderComponent />
       <Board />
     </Component>
   );

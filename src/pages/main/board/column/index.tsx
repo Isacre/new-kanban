@@ -13,7 +13,7 @@ const Component = styled.div`
   color: white;
   font-weight: bold;
   border-radius: 15px 15px 2px 2px;
-  width: 272px;
+  min-width: 350px;
   min-height: 100px;
   height: fit-content;
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.5);
@@ -52,6 +52,12 @@ const NewCardInput = styled.input`
   outline: none;
 `;
 
+const DeleteColumn = styled.div`
+  display: flex;
+  float: right;
+  cursor: pointer;
+`;
+
 interface Props {
   index: number;
   column: ColumnTypes;
@@ -63,7 +69,7 @@ export default function Column(props: Props) {
   const dispatch = useDispatch();
 
   function createNewCard() {
-    if (CardTitle === "") {
+    if (!CardTitle) {
       window.alert("Please enter a title for the card");
       return;
     }
@@ -76,9 +82,16 @@ export default function Column(props: Props) {
     setCardTitle("");
   }
 
+  function deleteColumn() {
+    dispatch(REDUX.deleteColumn(index));
+  }
+
   return (
     <Component>
-      <ColumnHeader>{column.title}</ColumnHeader>
+      <ColumnHeader>
+        <DeleteColumn onClick={deleteColumn}>X</DeleteColumn>
+        <div>{column.title}</div>
+      </ColumnHeader>
       <CardsWrapper>
         {column.cards.map((card: CardTypes, index: number) => {
           return <Card index={index} card={card} key={card.id} columnindex={props.index} />;
